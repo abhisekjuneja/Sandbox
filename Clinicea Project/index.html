@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Task Scheduler</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron text-center p-4">
+            <h1> Task Scheduler</h1>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col text-center">
+                        <h3>Add Tasks to List</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col mt-2">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="text" class="form-control" aria-label="Task Subject" id="task-subject">
+                                <span class="input-group-addon">Task Subject</span>
+                            </div>
+                            <div class="form-control-feedback ml-1 text-hide">Task Subject Can't be Empty!</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="task-due-date">Task Due Date</label>
+                                    <input type="date" class="form-control" id="task-due-date">
+                                    <div class="form-control-feedback ml-1 text-hide">The Task must have a Valid Due Date!</div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="formGroupExampleInput">Task Due Time</label>
+                                    <input type="time" class="form-control" id="task-due-time">
+                                    <div class="form-control-feedback ml-1 text-hide">The Task must have a Valid Due Time!</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="task-description">Describe the Task</label>
+                            <textarea class="form-control" id="exampleTextarea" rows="3" id="task-description"></textarea>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col text-center">
+                                <button class="btn btn-lg" id="add-task">Add to List</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mt-4 mt-md-0">
+                <div class="row">
+                    <div class="col text-center">
+                        <h3>Items in List</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col" id="output">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./scripts/app.js"></script>
+    <!-- Requiring the Firebase SDK from Google's CDN -->
+    <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
+    <!-- Setting up the Firebase SDK for the Project -->
+    <script>
+        // Configuring Firebase with the Firebase Account Credentials
+        const config = {
+            apiKey: "AIzaSyAoAjehD2TeLtP8EqPTnxcMi2j0im9BA3g",
+            authDomain: "clinicea-project.firebaseapp.com",
+            databaseURL: "https://clinicea-project.firebaseio.com",
+            projectId: "clinicea-project",
+            storageBucket: "",
+            messagingSenderId: "779734702044"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <!-- <script>
+        var heading = document.getElementById('Firebase');
+        let dbRef = firebase.database().ref().child('text');
+        dbRef.on('value', snapshot => {
+            heading.innerHTML = snapshot.val();
+        });
+    </script> -->
+</body>
+
+</html>
