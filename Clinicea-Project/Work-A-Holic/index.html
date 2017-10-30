@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Work-A-Holic</title>
+    <!-- Material Design Icons from GetMDL.io -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- Material Design StyleSheet -->
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-red.min.css" />
+    <!-- Material Design JavaScript -->
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <style>
+        #view-source {
+            position: fixed;
+            /* display: block; */
+            right: 0;
+            bottom: 0;
+            margin-right: 40px;
+            margin-bottom: 40px;
+            z-index: 900;
+        }
+
+        .page-content {
+            padding: 1rem;
+        }
+
+        .material-icons.md-18 {
+            font-size: 18px;
+        }
+
+        .material-icons.md-24 {
+            font-size: 24px;
+        }
+
+        .material-icons.md-36 {
+            font-size: 36px;
+        }
+
+        .material-icons.md-48 {
+            font-size: 48px;
+        }
+
+        .text-center {
+
+            text-align: right;
+        }
+
+        .demo-card-square.mdl-card {
+            width: 100%;
+            height: auto;
+        }
+
+        .demo-card-square>.mdl-card__title {
+            color: #fff;
+            background: #46B6AC;
+        }
+
+        .mb-2 {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Simple header with fixed tabs. -->
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs">
+        <header class="mdl-layout__header">
+            <div class="mdl-layout__header-row">
+                <!-- Title -->
+                <span class="mdl-layout-title">Work-A-Holic!</span>
+                <!-- Search Option - Disabled For Now! -->
+                <div class="mdl-layout-spacer"></div>
+                <!--
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
+                            mdl-textfield--floating-label mdl-textfield--align-right">
+                    <label class="mdl-button mdl-js-button mdl-button--icon" for="waterfall-exp">
+                        <i class="material-icons">search</i>
+                    </label>
+                    <div class="mdl-textfield__expandable-holder">
+                        <input class="mdl-textfield__input" type="text" name="sample" id="waterfall-exp">
+                    </div>
+                </div> -->
+                <!-- Right aligned menu below button -->
+                <button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon">
+                    <i class="material-icons">more_vert</i>
+                </button>
+
+                <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
+                    <li class="mdl-menu__item">Search</li>
+                    <li class="mdl-menu__item">List All</li>
+                    <li disabled class="mdl-menu__item">Calender</li>
+                    <!-- <li disabled class="mdl-menu__item">Disabled Action</li> -->
+                </ul>
+            </div>
+            <!-- Tabs -->
+            <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+                <a href="#fixed-tab-1" class="mdl-layout__tab is-active">
+                    <span class="mdl-badge" data-badge="5">
+                        <b>Pending</b>
+                    </span>
+                </a>
+
+                <a href="#fixed-tab-2" class="mdl-layout__tab">
+                    <b>Archived</b>
+                </a>
+            </div>
+        </header>
+        <div class="mdl-layout__drawer">
+            <span class="mdl-layout-title">
+                Work-A-Holic!
+                <small>[v0.0.1]</small>
+            </span>
+            <nav class="mdl-navigation">
+                <a class="mdl-navigation__link" href="">About</a>
+                <a class="mdl-navigation__link" href="">Report Bug</a>
+                <a class="mdl-navigation__link" href="">Feedback</a>
+                <a class="mdl-navigation__link" href="">Contact Us</a>
+            </nav>
+        </div>
+        <main class="mdl-layout__content">
+            <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
+                <div class="page-content">
+                    <!-- Your content goes here -->
+                    <!-- Square card 1 -->
+                    <div class="demo-card-square mdl-card mdl-shadow--2dp mb-2">
+                        <div class="mdl-card__title">
+                            <h2 class="mdl-card__title-text">Task Subject Goes Here</h2>
+                        </div>
+
+                        <div class="mdl-card__supporting-text">
+                            <b>Due On:</b> 25th October 2017
+                            <br />
+                            <b>Due At:</b> 23:00
+                            <br />
+                            <b>Description:</b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ut, officia!
+                            <br />
+                            <b>Task Created:</b> Mon Oct 30 2017 14:08:04
+                        </div>
+                        <div class="mdl-card__actions mdl-card--border text-center">
+                            <!-- Raised button with ripple -->
+                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+                                Mark As Complete
+                            </button>
+
+                        </div>
+                    </div>
+                    <!-- Square card 1 -->
+                    <div class="demo-card-square mdl-card mdl-shadow--2dp mb-2">
+                        <div class="mdl-card__title">
+                            <h2 class="mdl-card__title-text">Task Subject Goes Here</h2>
+                        </div>
+
+                        <div class="mdl-card__supporting-text">
+                            <b>Due On:</b> 25th October 2017
+                            <br />
+                            <b>Due At:</b> 23:00
+                            <br />
+                            <b>Description:</b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ut, officia!
+                            <br />
+                            <b>Task Created:</b> Mon Oct 30 2017 14:08:04
+                        </div>
+                        <div class="mdl-card__actions mdl-card--border text-center">
+                            <!-- Raised button with ripple -->
+                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+                                Mark As Complete
+                            </button>
+
+                        </div>
+                    </div>
+                    <!-- Square card 1 -->
+                    <div class="demo-card-square mdl-card mdl-shadow--2dp mb-2">
+                        <div class="mdl-card__title">
+                            <h2 class="mdl-card__title-text">Task Subject Goes Here</h2>
+                        </div>
+
+                        <div class="mdl-card__supporting-text">
+                            <b>Due On:</b> 25th October 2017
+                            <br />
+                            <b>Due At:</b> 23:00
+                            <br />
+                            <b>Description:</b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ut, officia!
+                            <br />
+                            <b>Task Created:</b> Mon Oct 30 2017 14:08:04
+                        </div>
+                        <div class="mdl-card__actions mdl-card--border text-center">
+                            <!-- Raised button with ripple -->
+                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+                                Mark As Complete
+                            </button>
+
+                        </div>
+                    </div>
+                    <!-- Square card 1 -->
+                    <div class="demo-card-square mdl-card mdl-shadow--2dp mb-2">
+                        <div class="mdl-card__title">
+                            <h2 class="mdl-card__title-text">Task Subject Goes Here</h2>
+                        </div>
+
+                        <div class="mdl-card__supporting-text">
+                            <b>Due On:</b> 25th October 2017
+                            <br />
+                            <b>Due At:</b> 23:00
+                            <br />
+                            <b>Description:</b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ut, officia!
+                            <br />
+                            <b>Task Created:</b> Mon Oct 30 2017 14:08:04
+                        </div>
+                        <div class="mdl-card__actions mdl-card--border text-center">
+                            <!-- Raised button with ripple -->
+                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+                                Mark As Complete
+                            </button>
+
+                        </div>
+                    </div>
+                    <!-- Square card 1 -->
+                    <div class="demo-card-square mdl-card mdl-shadow--2dp mb-2">
+                        <div class="mdl-card__title">
+                            <h2 class="mdl-card__title-text">Task Subject Goes Here</h2>
+                        </div>
+
+                        <div class="mdl-card__supporting-text">
+                            <b>Due On:</b> 25th October 2017
+                            <br />
+                            <b>Due At:</b> 23:00
+                            <br />
+                            <b>Description:</b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ut, officia!
+                            <br />
+                            <b>Task Created:</b> Mon Oct 30 2017 14:08:04
+                        </div>
+                        <div class="mdl-card__actions mdl-card--border text-center">
+                            <!-- Raised button with ripple -->
+                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+                                Mark As Complete
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="mdl-layout__tab-panel" id="fixed-tab-2">
+                <div class="page-content">
+                    <!-- Your content goes here -->
+                </div>
+            </section>
+        </main>
+    </div>
+    <!-- Colored FAB button with ripple -->
+    <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" id="view-source">
+        <i class="material-icons">add</i>
+    </button>
+    <script src="./scripts/app.js"></script>
+</body>
+
+</html>
