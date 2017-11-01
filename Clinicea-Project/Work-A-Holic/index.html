@@ -24,13 +24,20 @@
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
+    <!-- Date Picker Stuff -->
+    <!-- Roboto Font For Date Time Picker -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en'
+        rel='stylesheet' type='text/css'>
+    <!-- Date Time Picker CSS  -->
+    <link rel="stylesheet" href="./styles/date-time/mdDateTimePicker.css">
     <style>
+        @import "https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css";
         #add-task-button {
             position: fixed;
             display: block;
             right: 0;
             bottom: 0;
-            margin-right: 30px;
+            margin-right: 25px;
             margin-bottom: 60px;
             z-index: 900;
         }
@@ -76,10 +83,11 @@
 
         #pending-page-content,
         #archived-page-content {
-            font-size: 1.4rem;
+            font-size: 1.0rem;
             color: #888888;
             text-align: center;
-            font-family: 'Slabo 27px', serif;
+            /* font-family: 'Slabo 27px', serif; */
+            line-height: 1rem;
         }
 
         .no-link-underline {
@@ -165,7 +173,8 @@
         <div class="mdl-snackbar__text"></div>
         <button class="mdl-snackbar__action" type="button"></button>
     </div>
-    <script>
+    <!-- SnackBar -->
+    <!-- <script>
         (function () {
             'use strict';
             var snackbarContainer = document.querySelector('#snackbar-example');
@@ -184,9 +193,16 @@
                 snackbarContainer.MaterialSnackbar.showSnackbar(data);
             });
         }());
-    </script>
+    </script> -->
+    <!-- Date Time Picker -->
+    <script src="./scripts/date-time/moment.min.js"></script>
+    <script src="./scripts/date-time/scroll-into-view-if-needed.min.js"></script>
+    <script src="./scripts/date-time/draggabilly.pkgd.min.js"></script>
+    <script src="./scripts/date-time/mdDateTimePicker.js"></script>
+    <!-- App Code -->
     <script src="./scripts/app.js"></script>
     <script src="./scripts/drawer.js"></script>
+    <script src="./scripts/AddTask.js"></script>
 </body>
 
 </html>
