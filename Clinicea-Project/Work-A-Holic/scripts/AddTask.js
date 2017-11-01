@@ -61,7 +61,10 @@ $('#add-task-button').click(function () {
         onLoaded: function () {
             let dialogBox = document.getElementById('add-task-dialog');
 
-            let taskSubjectField = dialogBox.children[0].children[2].children[0].children[0]
+            let taskSubjectField = dialogBox.children[0].children[2].children[0].children[0];
+            taskSubjectField.addEventListener('focus', function() {
+                taskSubjectField.scrollIntoView();
+            });
 
             let datePickerTextField = dialogBox.children[0].children[2].children[2].children[0];
             let datePickerPopUp = new mdDateTimePicker.default({
@@ -72,12 +75,16 @@ $('#add-task-button').click(function () {
                 orientation: 'PORTRAIT'
             });
             datePickerTextField.addEventListener('focus', function () {
+                datePickerTextField.setAttribute('readonly', '');
                 datePickerPopUp.toggle();
             })
             datePickerPopUp.trigger = datePickerTextField;
             datePickerTextField.addEventListener('onOk', function () {
                 datePickerTextField.parentElement.classList.add('is-focused');
                 datePickerTextField.value = datePickerPopUp.time.toString();
+                let selectedDate = new Date(datePickerPopUp.time);
+                console.log(selectedDate.getFullYear());
+                datePickerTextField.removeAttribute('readonly', '');
             });
 
             let timePickerTextField = dialogBox.children[0].children[2].children[4].children[0];
