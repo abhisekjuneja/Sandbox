@@ -31,6 +31,8 @@
         rel='stylesheet' type='text/css'>
     <!-- Date Time Picker CSS  -->
     <link rel="stylesheet" href="./styles/date-time/mdDateTimePicker.css">
+    <!-- Favicon Link -->
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
     <style>
         @import "https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css";
         #add-task-button {
@@ -97,6 +99,15 @@
         .error-list {
             width: 100%;
         }
+
+        .drawer-title {
+            display: flex;
+            v
+            vertical-align: 
+            line-height: normal;
+            height: 8rem;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -125,7 +136,7 @@
                 </button>
 
                 <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
-                    <li class="mdl-menu__item">Search</li>
+                    <li class="mdl-menu__item" id="search-option">Search</li>
                     <li class="mdl-menu__item">List All</li>
                     <li disabled class="mdl-menu__item">Calender</li>
                     <!-- <li disabled class="mdl-menu__item">Disabled Action</li> -->
@@ -145,9 +156,8 @@
             </div>
         </header>
         <div class="mdl-layout__drawer">
-            <span class="mdl-layout-title">
+            <span class="mdl-layout-title drawer-title">
                 Work-A-Holic!
-                <small>[v0.0.1]</small>
             </span>
             <nav class="mdl-navigation">
                 <a class="mdl-navigation__link" id="show-about-info">About</a>

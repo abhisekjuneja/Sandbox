@@ -1,7 +1,7 @@
 {
     "short_name": "Work-A-Holic!",
-    "name": "Work-A-Holic! - The Daily Scheduler Application",
+    "name": "Work-A-Holic! - Schedule your Tasks Easily!",
     "start_url": "/index.html",
     "display": "standalone",
     "orientation": "portrait"
-  }
+}
