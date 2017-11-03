@@ -3,14 +3,15 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="theme-color" content="#00bcd7" />
     <!-- Manifest File -->
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="/manifest.json" />
     <title>Work-A-Holic</title>
     <!-- Material Design Icons from GetMDL.io -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
     <!-- Material Design StyleSheet -->
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-red.min.css" />
     <!-- Material Design JavaScript -->
@@ -23,16 +24,12 @@
     <script src="./scripts/mdl-jquery-modal-dialog.js"></script>
     <!-- Font-Awesome -->
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
     <!-- Date Picker Stuff -->
     <!-- Roboto Font For Date Time Picker -->
     <link href='https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en'
         rel='stylesheet' type='text/css'>
     <!-- Date Time Picker CSS  -->
     <link rel="stylesheet" href="./styles/date-time/mdDateTimePicker.css">
-    <!-- Favicon Link -->
-    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
 
     <style>
         @import "https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css";
@@ -97,7 +94,10 @@
             font-size: 1.0rem;
             color: #888888;
             text-align: center;
-            line-height: 10rem;
+        }
+
+        .drawer-app-title {
+            margin-left: -15px !important;
         }
 
         .no-link-underline {
@@ -169,8 +169,8 @@
             </div>
         </header>
         <div class="mdl-layout__drawer">
-            <span class="mdl-layout-title drawer-title">
-                Work-A-Holic!
+            <span class="mdl-layout-title drawer-title drawer-app-title">
+                <img src="./drawer-logo.png" alt="Work-A-Holic Logo" style="width: 100%; height:100%">
             </span>
             <nav class="mdl-navigation">
                 <a class="mdl-navigation__link" id="show-about-info">About</a>

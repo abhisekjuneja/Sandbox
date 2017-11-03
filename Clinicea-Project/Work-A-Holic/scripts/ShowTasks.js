@@ -29,11 +29,11 @@ function renderTasksToScreen() {
     }
     if(pendingTasksCount == 0) {
         pendingTasksBadge.setAttribute('data-badge', pendingTasksCount);
-        pendingTabContent.innerHTML = 'No Pending Tasks to Display!<br /> TODO: Improve this Message'
+        pendingTabContent.innerHTML = '<b><br /><i class="fa fa-clone fa-4x" aria-hidden="true"></i><br /><br />Pending Task List is Empty!<br /><br /> Click on the <i class="icon-plus-sign"></i>  icon to Add a New Task</b>';
     }
     if(archivedTasksCount == 0) {
         archivedTasksBadge.setAttribute('data-badge', archivedTasksCount);
-        archivedTabContent.innerHTML = 'No Archived Tasks to Display!<br /> TODO: Improve this Message'
+        archivedTabContent.innerHTML = '<b><br /><i class="fa fa-clone fa-4x" aria-hidden="true"></i><br /><br />Archived Task List is Empty!<br /><br /> Click on the <i class="icon-plus-sign"></i>  icon to Add a New Task</b>';
     }
 }
 

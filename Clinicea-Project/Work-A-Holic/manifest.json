@@ -3,5 +3,12 @@
     "name": "Work-A-Holic! - Schedule your Tasks Easily!",
     "start_url": "/index.html",
     "display": "standalone",
-    "orientation": "portrait"
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "./icon.svg",
+            "sizes": "155x155",
+            "type": "image/svg"
+        }
+    ]
 }
