@@ -24,11 +24,6 @@ const addTaskModalContent = `
 </form>
 `;
 
-// $('#add-task-button').click(createAddTaskModal);
-window.onload = function () {
-    document.getElementById('add-task-button').addEventListener('click', createAddTaskModal);
-};
-
 function createAddTaskModal(taskInformation) {
     showDialog({
         id: 'add-task-dialog',
@@ -47,21 +42,33 @@ function createAddTaskModal(taskInformation) {
                 let datePickerTextField = dialogBox.children[0].children[2].children[2].children[0];
                 let timePickerTextField = dialogBox.children[0].children[2].children[4].children[0];
                 let taskDescriptionField = dialogBox.children[0].children[2].children[6].children[0];
-                let validationReport = validateTaskData(taskSubjectField.value, datePickerTextField.value, timePickerTextField.value, taskDescriptionField.value);
+                let validationReport = validatedata(taskSubjectField.value, datePickerTextField.value, timePickerTextField.value, taskDescriptionField.value);
                 let snackbarContainer = document.getElementById('snackbar-example');
                 // If the Validation Check has been Passed & the task is Ready to Be Stored
                 if (validationReport.subject && validationReport.date && validationReport.time) {
-                    // Add Task to Local Storage
-                    // Show Success SnackBar with the Option to Undo the Last Change 
+                    let newTask = createTaskInformation(taskSubjectField.value, datePickerTextField.value, timePickerTextField.value, taskDescriptionField.value);
+                    let currentTimeStamp = (new Date).getTime();
+                    newTask.timeStamp = currentTimeStamp;
+                    newTask.status = 'pending';
+                    // Add New Task Data to Local Storage with the Key of the Created Time Stamp
+                    localStorage[currentTimeStamp] = JSON.stringify(newTask);
+                    if (localStorage[currentTimeStamp]) {
+                        console.log('Inserted!');
+                        console.log(localStorage[currentTimeStamp]);
+                        renderTasksToScreen();
+                    } else {
+                        console.log('Error in Local Storage Insertion');
+                    }
+                    // Create a Handler, which allows the User to Undo the Last Task Addition 
+                    let successHandler = function (event) {
+                        confirm('Do you Really Want to Undo the Addition of the Last Item?');
+                    };
+                    // Show Success SnackBar with the Option to Undo the Last Change
                     let snackbarData = {
                         message: 'Task Added to List',
                         timeout: 3000,
                         actionHandler: successHandler,
                         actionText: 'Undo'
-                    };
-                    // Create a Handler, which allows the User to Undo the Last Task Addition 
-                    let successHandler = function (event) {
-                        confirm('Do you Really Want to Undo the Addition of the Last Item?');
                     };
                     setTimeout(function () {
                         snackbarContainer.MaterialSnackbar.showSnackbar(snackbarData)
@@ -91,7 +98,7 @@ function createAddTaskModal(taskInformation) {
             }
         },
         cancelable: false,
-        contentStyle: { 'max-width': '400px', 'text-align': 'center' },
+        contentStyle: { 'margin-top': '5vh', 'max-width': '400px', 'text-align': 'center', 'overflow': 'scroll', 'height': '500px', 'overflow-x': 'hidden' },
         onLoaded: function () {
             let dialogBox = document.getElementById('add-task-dialog');
 
@@ -151,7 +158,7 @@ function createAddTaskModal(taskInformation) {
                         taskSubjectField.parentElement.classList.remove('is-invalid');
                     });
                 } else {
-                    taskSubjectField.value = taskInformation.taskData.subject;
+                    taskSubjectField.value = taskInformation.data.subject;
                     taskSubjectField.dispatchEvent(new Event('focus'));
                 }
                 if (taskInformation.validationReport.date == false) {
@@ -160,22 +167,21 @@ function createAddTaskModal(taskInformation) {
                         datePickerTextField.parentElement.classList.remove('is-invalid');
                     });
                 } else {
-                    datePickerTextField.value = taskInformation.taskData.date;
+                    datePickerTextField.value = taskInformation.data.date;
                     datePickerTextField.parentElement.classList.add('is-focused');
                 }
                 if (taskInformation.validationReport.time == false) {
                     timePickerTextField.parentElement.classList.add('is-invalid');
                     timePickerTextField.addEventListener('change', function () {
-                        console.log('c');
                         timePickerTextField.parentElement.classList.remove('is-invalid');
                     });
                 }
                 else {
-                    timePickerTextField.value = taskInformation.taskData.time;
+                    timePickerTextField.value = taskInformation.data.time;
                     timePickerTextField.parentElement.classList.add('is-focused');
                 }
                 if (taskInformation.validationReport.description == true) {
-                    taskDescriptionField.value = taskInformation.taskData.description;
+                    taskDescriptionField.value = taskInformation.data.description;
                     taskDescriptionField.dispatchEvent(new Event('focus'));
                 }
             }
@@ -183,7 +189,7 @@ function createAddTaskModal(taskInformation) {
     });
 }
 
-function validateTaskData(subject, date, time, description) {
+function validatedata(subject, date, time, description) {
     let validationReport = {
         subject: true,
         date: true,
@@ -232,12 +238,14 @@ function createErrorText(errorType) {
 
 function createTaskInformation(subject, date, time, description, validationReport) {
     let taskInformation = {};
-    taskInformation.taskData = {
+    taskInformation.data = {
         subject: subject,
         date: date,
         time: time,
         description: description
     };
-    taskInformation.validationReport = validationReport;
+    if (validationReport) {
+        taskInformation.validationReport = validationReport;
+    }
     return taskInformation;
 }

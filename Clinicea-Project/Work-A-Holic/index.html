@@ -33,7 +33,12 @@
     <link rel="stylesheet" href="./styles/date-time/mdDateTimePicker.css">
     <!-- Favicon Link -->
     <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+    
     <style>
+        body {
+            overflow-x: hidden;
+        }
+
         @import "https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css";
         #add-task-button {
             position: fixed;
@@ -102,8 +107,7 @@
 
         .drawer-title {
             display: flex;
-            v
-            vertical-align: 
+            vertical-align: middle; 
             line-height: normal;
             height: 8rem;
             text-align: center;
@@ -146,12 +150,14 @@
             <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
                 <a href="#fixed-tab-1" class="mdl-layout__tab is-active">
                     <b>Pending</b>
-                    <span class="mdl-badge" data-badge="0">
+                    <span class="mdl-badge" data-badge="0" id="pending-tasks-badge">
                     </span>
                 </a>
 
                 <a href="#fixed-tab-2" class="mdl-layout__tab">
                     <b>Archived</b>
+                    <span class="mdl-badge" data-badge="0" id="archived-tasks-badge">
+                    </span>
                 </a>
             </div>
         </header>
@@ -168,13 +174,11 @@
         </div>
         <main class="mdl-layout__content">
             <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
-                <div class="page-content" id="pending-page-content">
-                    <!-- Pending Page content goes here -->
+                <div class="page-content" id="pending-tab-content">
                 </div>
             </section>
             <section class="mdl-layout__tab-panel" id="fixed-tab-2">
-                <div class="page-content" id="archived-page-content">
-                    <!-- Archived Page content goes here -->
+                <div class="page-content" id="archived-tab-content">
                 </div>
             </section>
         </main>
@@ -217,6 +221,7 @@
     <script src="./scripts/app.js"></script>
     <script src="./scripts/drawer.js"></script>
     <script src="./scripts/AddTask.js"></script>
+    <script src="./scripts/ShowTasks.js"></script>
 </body>
 
 </html>
