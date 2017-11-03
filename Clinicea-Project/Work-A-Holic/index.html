@@ -33,13 +33,15 @@
     <link rel="stylesheet" href="./styles/date-time/mdDateTimePicker.css">
     <!-- Favicon Link -->
     <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
-    
+
     <style>
+        @import "https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css";
+
         body {
             overflow-x: hidden;
         }
 
-        @import "https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css";
+
         #add-task-button {
             position: fixed;
             display: block;
@@ -70,31 +72,32 @@
             font-size: 48px;
         }
 
-        .text-center {
-
-            text-align: right;
-        }
-
         .demo-card-square.mdl-card {
+            text-align: left;
             width: 100%;
             height: auto;
         }
 
-        .demo-card-square>.mdl-card__title {
+        .task-pending {
             color: #fff;
-            background: #46B6AC;
+            background: rgb(53, 135, 126);
+        }
+
+        .task-archived {
+            color: rgb(255, 255, 255);
+            background: rgb(218, 75, 73);
         }
 
         .mb-2 {
             margin-bottom: 15px;
         }
 
-        #pending-page-content,
-        #archived-page-content {
+        #pending-tab-content,
+        #archived-tab-content {
             font-size: 1.0rem;
             color: #888888;
             text-align: center;
-            line-height: 1rem;
+            line-height: 10rem;
         }
 
         .no-link-underline {
@@ -107,10 +110,14 @@
 
         .drawer-title {
             display: flex;
-            vertical-align: middle; 
+            vertical-align: middle;
             line-height: normal;
             height: 8rem;
             text-align: center;
+        }
+
+        .task-card-text {
+            margin-left: 0.5rem;
         }
     </style>
 </head>

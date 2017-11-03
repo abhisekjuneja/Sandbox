@@ -42,7 +42,7 @@ function createAddTaskModal(taskInformation) {
                 let datePickerTextField = dialogBox.children[0].children[2].children[2].children[0];
                 let timePickerTextField = dialogBox.children[0].children[2].children[4].children[0];
                 let taskDescriptionField = dialogBox.children[0].children[2].children[6].children[0];
-                let validationReport = validatedata(taskSubjectField.value, datePickerTextField.value, timePickerTextField.value, taskDescriptionField.value);
+                let validationReport = validateData(taskSubjectField.value, datePickerTextField.value, timePickerTextField.value, taskDescriptionField.value);
                 let snackbarContainer = document.getElementById('snackbar-example');
                 // If the Validation Check has been Passed & the task is Ready to Be Stored
                 if (validationReport.subject && validationReport.date && validationReport.time) {
@@ -65,7 +65,7 @@ function createAddTaskModal(taskInformation) {
                     };
                     // Show Success SnackBar with the Option to Undo the Last Change
                     let snackbarData = {
-                        message: 'Task Added to List',
+                        message: `'${taskSubjectField.value}' was Added to the List of Pending Tasks`,
                         timeout: 3000,
                         actionHandler: successHandler,
                         actionText: 'Undo'
@@ -98,7 +98,7 @@ function createAddTaskModal(taskInformation) {
             }
         },
         cancelable: false,
-        contentStyle: { 'margin-top': '5vh', 'max-width': '400px', 'text-align': 'center', 'overflow': 'scroll', 'height': '500px', 'overflow-x': 'hidden' },
+        contentStyle: { 'max-width': '400px', 'text-align': 'center', 'margin-top': '5vh' },
         onLoaded: function () {
             let dialogBox = document.getElementById('add-task-dialog');
 
@@ -131,7 +131,7 @@ function createAddTaskModal(taskInformation) {
             let timePickerTextField = dialogBox.children[0].children[2].children[4].children[0];
             let timePickerPopUp = new mdDateTimePicker.default({
                 type: 'time',
-                init: moment('10:5 PM', 'h:m A'),
+                init: moment((new Date).getTime()),
                 orientation: 'PORTRAIT'
             });
             timePickerTextField.addEventListener('focus', function () {
@@ -189,7 +189,7 @@ function createAddTaskModal(taskInformation) {
     });
 }
 
-function validatedata(subject, date, time, description) {
+function validateData(subject, date, time, description) {
     let validationReport = {
         subject: true,
         date: true,
@@ -202,8 +202,9 @@ function validatedata(subject, date, time, description) {
         validationReport.date = false;
     if (time.length === 0)
         validationReport.time = false;
-    if (description.length == 0)
+    if (description.trim() === '')
         validationReport.description = false;
+        console.log(validationReport);
     return validationReport;
 }
 

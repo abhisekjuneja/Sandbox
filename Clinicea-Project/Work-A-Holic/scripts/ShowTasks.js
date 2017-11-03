@@ -38,20 +38,31 @@ function renderTasksToScreen() {
 }
 
 function addPendingTaskToScreen(task) {
+    if(task.data.description.trim() !== '') {
+        task.data.description = `<i class="fa fa-comments-o" aria-hidden="true"></i>&nbsp;&nbsp;<b>${task.data.description}</b>`
+    }
     let taskTemplate = `
     <div class="demo-card-square mdl-card mdl-shadow--4dp mb-2" id="${task.timeStamp}">
-        <div class="mdl-card__title">
+        <div class="mdl-card__title task-pending">
             <h2 class="mdl-card__title-text">${task.data.subject}</h2>
         </div>
 
         <div class="mdl-card__supporting-text">
-            <b>Due On:</b> ${task.data.date}
-            <br />
-            <b>Due At:</b> ${task.data.time}
-            <br />
-            <b>Description:</b> ${task.data.description}
-            <br />
-            <b>Task Created:</b> TODO: Add TimeStamp
+            <div class="task-card-text">
+                <i class="fa fa-calendar fa-large" aria-hidden="true"></i>&nbsp;&nbsp;<b>${task.data.date}</b>
+                <br />
+                <i class="fa fa-clock-o fa-large" aria-hidden="true"></i>&nbsp;&nbsp;<b>${task.data.time}</b>
+                <br />
+                ${task.data.description}
+            </div>                
+            <hr />
+            <div class="task-card-text">
+                You Created this Entry on:
+                <br />
+                <i class="fa fa-calendar-plus-o fa-large" aria-hidden="true"></i>&nbsp;&nbsp;<b>${moment(task.timeStamp).format('dddd, MMMM Do YYYY')}</b>
+                <br />
+                <i class="fa fa-clock-o fa-large" aria-hidden="true"></i>&nbsp;&nbsp;<b>${moment(task.timeStamp).format('h:mm A')}</b>
+            </div>
         </div>
 
         <div class="mdl-card__actions mdl-card--border">
@@ -65,21 +76,32 @@ function addPendingTaskToScreen(task) {
 }
 
 function addArchivedTaskToScreen(task) {
+    if(task.data.description.trim() !== '') {
+        task.data.description = `<i class="fa fa-comments-o" aria-hidden="true"></i> <b>${task.data.description}</b>`
+    }
     let taskTemplate = `
     <div class="demo-card-square mdl-card mdl-shadow--2dp mb-2" id="${task.timeStamp}">
-        <div class="mdl-card__title">
+        <div class="mdl-card__title task-archived">
             <h2 class="mdl-card__title-text">${task.data.subject}</h2>
         </div>
 
         <div class="mdl-card__supporting-text">
-            <b>Due On:</b> ${task.data.date}
+        <div class="task-card-text">
+            <i class="fa fa-calendar fa-large" aria-hidden="true"></i>&nbsp;&nbsp;<b>${task.data.date}</b>
             <br />
-            <b>Due At:</b> ${task.data.time}
+            <i class="fa fa-clock-o fa-large" aria-hidden="true"></i>&nbsp;&nbsp;<b>${task.data.time}</b>
             <br />
-            <b>Description:</b> ${task.data.description}
+            ${task.data.description}
+        </div>                
+        <hr />
+        <div class="task-card-text">
+            You Created this Entry on:
             <br />
-            <b>Task Created:</b> TODO: Add TimeStamp
+            <i class="fa fa-calendar-plus-o fa-large" aria-hidden="true"></i>&nbsp;&nbsp;<b>${moment(task.timeStamp).format('dddd, MMMM Do YYYY')}</b>
+            <br />
+            <i class="fa fa-clock-o fa-large" aria-hidden="true"></i>&nbsp;&nbsp;<b>${moment(task.timeStamp).format('h:mm A')}</b>
         </div>
+    </div>
         
         <div class="mdl-card__actions mdl-card--border">
             <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" onclick="deleteArchivedTask(${task.timeStamp})">
