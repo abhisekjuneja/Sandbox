@@ -1,5 +1,5 @@
 function renderTasksToScreen() {
-    console.log('Rendered!');
+    // console.log('Rendered!');
     let pendingTabContent = document.getElementById('pending-tab-content');
     let archivedTabContent = document.getElementById('archived-tab-content');
     pendingTabContent.innerHTML = '';
