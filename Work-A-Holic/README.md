@@ -1,3 +1,0 @@
-# LineUp
-
-Application in Development!
