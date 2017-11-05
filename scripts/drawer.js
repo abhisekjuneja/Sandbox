@@ -1,5 +1,5 @@
 let aboutContent = `
-'<b>Work-A-Holic</b>' is the Go
+'<b>Work-A-Holic</b>' is the Go-To Application for Scheduling Tasks & Monitoring Them!
 `;
 $('#show-about-info').click(function () {
     showDialog({
@@ -25,7 +25,7 @@ $('#show-report-bug-info').click(function () {
 $('#give-feedback-info').click(function () {
     showDialog({
         title: 'I <b class="mdl-color-text--red-600"><i class="icon-heart"></i></b> Your Feedback!',
-        text: 'Visit <a class="no-link-underline" href="mailto:abhisekjuneja@gmail.com">This Link</a> to share your Experience!',
+        text: 'Visit <a class="no-link-underline" href="mailto:abhisekjuneja@gmail.com"><b>This Link</b></a> to share your Experience!',
         negative: {
             id: 'cancel-button',
             title: 'Close'
@@ -36,8 +36,8 @@ $('#give-feedback-info').click(function () {
 
 $('#contact-us-info').click(function () {
     showDialog({
-        title: 'Want to get in Touch? Sure Reach out to Us!',
-        text: 'Send an <a class="no-link-underline" href="mailto:abhisekjuneja@gmail.com">email</a> to our Team. We promise to get in touch Shortly!',
+        title: 'Reach out to Me!',
+        text: 'Send me an <a class="no-link-underline" href="mailto:abhisekjuneja@gmail.com"><b>E-mail</b></a>.<br />I promise to get in touch ASAP!',
         negative: {
             id: 'cancel-button',
             title: 'Close'
