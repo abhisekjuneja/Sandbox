@@ -12,38 +12,44 @@ function renderTasksToScreen() {
         let key = localStorage.key(i);
         try {
             let task = JSON.parse(localStorage[key]);
-            if (task.timeStamp && task.data && task.status) {
-                if (task.status === 'pending') {
-                    addPendingTaskToScreen(task);
-                    pendingTasksCount++;
-                    pendingTasksBadge.setAttribute('data-badge', pendingTasksCount);
-                }
-                else {
-                    addArchivedTaskToScreen(task);
-                    archivedTasksCount++;
-                    archivedTasksBadge.setAttribute('data-badge', archivedTasksCount);
-                }
+            // let timeStampObject = {};
+            // timeStampObject.dueDateTimeStamp = moment(task.data.date + ' ' + task.data.time, 'dddd, MMMM Do YYYY h:mm A').format('X');
+            // timeStampObject.createdDateTimeStamp = task.timeStamp;
+            if (task.status === 'pending') {
+                addPendingTaskToScreen(task);
+                pendingTasksCount++;
+                pendingTasksBadge.setAttribute('data-badge', pendingTasksCount);
             }
+            else {
+                addArchivedTaskToScreen(task);
+                archivedTasksCount++;
+                archivedTasksBadge.setAttribute('data-badge', archivedTasksCount);
+            }
+            // tasksDueTimeStamp.push(timeStampObject);
+        } catch (exception) {
+            console.log(exception);
         }
-        catch (e) { }
     }
-    if(pendingTasksCount == 0) {
+    // for (let i = 0; i < tasksDueTimeStamp.length; i++) {
+    //     let task = JSON.parse(localStorage[tasksDueTimeStamp[i].createdDateTimeStamp]);
+    // }
+    if (pendingTasksCount == 0) {
         pendingTasksBadge.setAttribute('data-badge', pendingTasksCount);
         pendingTabContent.innerHTML = '<b><br /><i class="fa fa-clone fa-4x" aria-hidden="true"></i><br /><br />Pending Task List is Empty!<br /><br /> Click on the <i class="icon-plus-sign"></i>  icon to Add a New Task</b>';
     }
-    if(archivedTasksCount == 0) {
+    if (archivedTasksCount == 0) {
         archivedTasksBadge.setAttribute('data-badge', archivedTasksCount);
         archivedTabContent.innerHTML = '<b><br /><i class="fa fa-clone fa-4x" aria-hidden="true"></i><br /><br />Archived Task List is Empty!<br /><br /> Click on the <i class="icon-plus-sign"></i>  icon to Add a New Task</b>';
     }
 }
 
 function addPendingTaskToScreen(task) {
-    if(task.data.description.trim() !== '') {
+    if (task.data.description.trim() !== '') {
         task.data.description = `<i class="fa fa-comments-o" aria-hidden="true"></i>&nbsp;&nbsp;<b>${task.data.description}</b>`
     }
     let taskTemplate = `
     <div class="demo-card-square mdl-card mdl-shadow--4dp mb-2" id="${task.timeStamp}">
-        <div class="mdl-card__title task-pending">
+        <div class="mdl-card__title mdl-color--light-blue-700 mdl-color-text--white">
             <h2 class="mdl-card__title-text">${task.data.subject}</h2>
         </div>
 
@@ -59,14 +65,14 @@ function addPendingTaskToScreen(task) {
             <div class="task-card-text">
                 You Created this Entry on:
                 <br />
-                <i class="fa fa-calendar-plus-o fa-large" aria-hidden="true"></i>&nbsp;&nbsp;<b>${moment(task.timeStamp).format('dddd, MMMM Do YYYY')}</b>
+                <i class="fa fa-calendar-plus-o fa-large" aria-hidden="true"></i>&nbsp;&nbsp;<b>${moment(task.timeStamp, 'X').format('dddd, MMMM Do YYYY')}</b>
                 <br />
-                <i class="fa fa-clock-o fa-large" aria-hidden="true"></i>&nbsp;&nbsp;<b>${moment(task.timeStamp).format('h:mm A')}</b>
+                <i class="fa fa-clock-o fa-large" aria-hidden="true"></i>&nbsp;&nbsp;<b>${moment(task.timeStamp, 'X').format('h:mm A')}</b>
             </div>
         </div>
 
         <div class="mdl-card__actions mdl-card--border">
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" onclick="markTaskAsComplete(${task.timeStamp})">
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" onclick="moveTaskToArchivedTab(${task.timeStamp})">
             Mark As Complete
             </button>
         </div>
@@ -76,12 +82,33 @@ function addPendingTaskToScreen(task) {
 }
 
 function addArchivedTaskToScreen(task) {
-    if(task.data.description.trim() !== '') {
+    let archivedTaskDisplayClass = '';
+    let completionStatusHTML = '';
+    if (task.data.description.trim() !== '') {
         task.data.description = `<i class="fa fa-comments-o" aria-hidden="true"></i> <b>${task.data.description}</b>`
+    }
+    if (task.completionInTime == true) {
+        archivedTaskDisplayClass = 'task-archived-successful';
+        completionStatusHTML = `
+        <i class="fa fa-thumbs-up fa-large" aria-hidden="true"></i>&nbsp;&nbsp;<b style="color: green;">Completed Before Due Date!</b>
+        <br />
+        <i class="fa fa-calendar-plus-o fa-large" aria-hidden="true"></i>&nbsp;&nbsp;<b>${moment(task.completionTimeStamp, 'X').format('dddd, MMMM Do YYYY')}</b>
+        <br />
+        <i class="fa fa-clock-o fa-large" aria-hidden="true"></i>&nbsp;&nbsp;<b>${moment(task.completionTimeStamp, 'X').format('h:mm A')}</b>
+        `;
+    } else {
+        archivedTaskDisplayClass = 'task-archived-unsuccessful';
+        completionStatusHTML = `
+        <i class="fa fa-thumbs-down fa-large" aria-hidden="true"></i>&nbsp;&nbsp;<b style="color: red;">Expired on Due Date</b>
+        <br />
+        <i class="fa fa-calendar-plus-o fa-large" aria-hidden="true"></i>&nbsp;&nbsp;<b>${moment(task.date).format('dddd, MMMM Do YYYY')}</b>
+        <br />
+        <i class="fa fa-clock-o fa-large" aria-hidden="true"></i>&nbsp;&nbsp;<b>${moment(task.time).format('h:mm A')}</b>
+        `;
     }
     let taskTemplate = `
     <div class="demo-card-square mdl-card mdl-shadow--2dp mb-2" id="${task.timeStamp}">
-        <div class="mdl-card__title task-archived">
+        <div class="mdl-card__title ${archivedTaskDisplayClass}">
             <h2 class="mdl-card__title-text">${task.data.subject}</h2>
         </div>
 
@@ -101,10 +128,14 @@ function addArchivedTaskToScreen(task) {
             <br />
             <i class="fa fa-clock-o fa-large" aria-hidden="true"></i>&nbsp;&nbsp;<b>${moment(task.timeStamp).format('h:mm A')}</b>
         </div>
+        <hr />
+        <div class="task-card-text">
+            ${completionStatusHTML}
+        </div>
     </div>
         
         <div class="mdl-card__actions mdl-card--border">
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" onclick="deleteArchivedTask(${task.timeStamp})">
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" onclick="deleteTask(${task.timeStamp})">
             Delete Task
             </button>
         </div>
@@ -113,14 +144,49 @@ function addArchivedTaskToScreen(task) {
     document.getElementById('archived-tab-content').innerHTML += taskTemplate;
 }
 
-function markTaskAsComplete(taskId) {
+function moveTaskToArchivedTab(taskId) {
     let task = JSON.parse(localStorage[taskId]);
     task.status = 'archived';
+    if (checkIfTaskExpired(task)) {
+        task.completionInTime = false;
+    } else {
+        task.completionInTime = true;
+        task.completionTimeStamp = moment().format('X');
+    }
+    console.log(task);
     localStorage[taskId] = JSON.stringify(task);
     renderTasksToScreen();
 }
 
-function deleteArchivedTask(taskId) {
+function checkIfTaskExpired(task) {
+    let currentDateTimeStamp = moment().format('X');
+    // console.log(currentDateTimeStamp);
+    let dueDateTimeStamp = moment(task.data.date + ' ' + task.data.time, 'dddd, MMMM Do YYYY h:mm A').format('X');
+    if (currentDateTimeStamp > dueDateTimeStamp) {
+        return true;
+    } else {
+        return false
+    }
+}
+
+function deleteTask(taskId) {
     localStorage.removeItem(taskId);
     renderTasksToScreen();
+}
+
+function monitorTaskTimeStamps() {
+    // console.log('Monitoring!');
+    for (let i = 0; i < localStorage.length; i++) {
+        let key = localStorage.key(i);
+        try {
+            let task = JSON.parse(localStorage[key]);
+            if (task.status === 'pending') {
+                if (checkIfTaskExpired(task)) {
+                    console.log(`Moving ${task} to Archived! Due Date ${task.date} ${task.time} Passed!`);
+                    moveTaskToArchivedTab(task.timeStamp);
+                }
+            }
+        }
+        catch (exception) { }
+    }
 }

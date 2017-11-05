@@ -1,6 +1,6 @@
 {
-    "short_name": "Work-A-Holic!",
-    "name": "Work-A-Holic! - Schedule your Tasks Easily!",
+    "short_name": "Work-A-Holic",
+    "name": "Work-A-Holic - Schedule your Tasks Easily!",
     "start_url": "/index.html",
     "display": "standalone",
     "orientation": "portrait",

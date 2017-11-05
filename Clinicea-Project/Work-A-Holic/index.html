@@ -13,31 +13,30 @@
     <!-- Material Design Icons from GetMDL.io -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
     <!-- Material Design StyleSheet -->
-    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-red.min.css" />
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.min.css" />
     <!-- Material Design JavaScript -->
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <!-- JQuery CDN -->
-    <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <!-- Modal Dialog CSS -->
     <link rel="stylesheet" href="./styles/mdl-jquery-modal-dialog.css">
     <!-- Mdal Dialog Box JS -->
     <script src="./scripts/mdl-jquery-modal-dialog.js"></script>
     <!-- Font-Awesome -->
-    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     <!-- Date Picker Stuff -->
     <!-- Roboto Font For Date Time Picker -->
     <link href='https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en'
         rel='stylesheet' type='text/css'>
     <!-- Date Time Picker CSS  -->
     <link rel="stylesheet" href="./styles/date-time/mdDateTimePicker.css">
-
+    <link href="https://fonts.googleapis.com/css?family=Fruktur" rel="stylesheet">
     <style>
         @import "https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css";
 
         body {
             overflow-x: hidden;
         }
-
 
         #add-task-button {
             position: fixed;
@@ -46,6 +45,16 @@
             bottom: 0;
             margin-right: 25px;
             margin-bottom: 60px;
+            z-index: 900;
+        }
+
+        #search-task-button {
+            position: fixed;
+            display: block;
+            right: 0;
+            bottom: 0;
+            margin-right: 25px;
+            margin-bottom: 120px;
             z-index: 900;
         }
 
@@ -80,9 +89,14 @@
             background: rgb(53, 135, 126);
         }
 
-        .task-archived {
+        .task-archived-successful {
+            color: rgba(99, 22, 22, 0.357);
+            background: rgb(46, 192, 97);
+        }
+
+        .task-archived-unsuccessful {
             color: rgb(255, 255, 255);
-            background: rgb(218, 75, 73);
+            background: rgb(203, 63, 63);
         }
 
         .mb-2 {
@@ -92,12 +106,8 @@
         #pending-tab-content,
         #archived-tab-content {
             font-size: 1.0rem;
-            color: #888888;
+            color: rgb(157, 157, 157);
             text-align: center;
-        }
-
-        .drawer-app-title {
-            margin-left: -15px !important;
         }
 
         .no-link-underline {
@@ -112,56 +122,58 @@
             display: flex;
             vertical-align: middle;
             line-height: normal;
-            height: 8rem;
             text-align: center;
+            padding: 0;
+            margin-left: 0.9rem !important;
         }
 
         .task-card-text {
             margin-left: 0.5rem;
         }
+
+        .mdl-layout-title {
+            margin-left: -1.0rem;
+            font-family: 'Fruktur', cursive;
+            font-size: 1.8rem;
+        }
+
+        .mdl-layout__header {
+            color: black;
+        }
+
+        .mdl-layout__header {
+            background-color: #F57C00;
+        }
     </style>
 </head>
 
 <body>
+
     <!-- Simple header with fixed tabs. -->
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs">
-        <header class="mdl-layout__header">
+        <header class="mdl-layout__header mdl-color--brown-200 mdl-color-text--black">
             <div class="mdl-layout__header-row">
                 <!-- Title -->
-                <span class="mdl-layout-title">Work-A-Holic!</span>
-                <!-- Search Option - Disabled For Now! -->
+                <span class="mdl-layout-title mdl-color-text--black">Work-A-Holic</span>
                 <div class="mdl-layout-spacer"></div>
-                <!--
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
-                            mdl-textfield--floating-label mdl-textfield--align-right">
-                    <label class="mdl-button mdl-js-button mdl-button--icon" for="waterfall-exp">
-                        <i class="material-icons">search</i>
-                    </label>
-                    <div class="mdl-textfield__expandable-holder">
-                        <input class="mdl-textfield__input" type="text" name="sample" id="waterfall-exp">
-                    </div>
-                </div> -->
                 <!-- Right aligned menu below button -->
                 <button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon">
-                    <i class="material-icons">more_vert</i>
+                    <i class="material-icons mdl-color-text--black">more_vert</i>
                 </button>
-
                 <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
                     <li class="mdl-menu__item" id="search-option">Search</li>
-                    <li class="mdl-menu__item">List All</li>
-                    <li disabled class="mdl-menu__item">Calender</li>
-                    <!-- <li disabled class="mdl-menu__item">Disabled Action</li> -->
+                    <li class="mdl-menu__item" id="refresh-option">Refresh</li>
+                    <li class="mdl-menu__item" id="calendar-option">Calendar</li>
                 </ul>
             </div>
             <!-- Tabs -->
-            <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
-                <a href="#fixed-tab-1" class="mdl-layout__tab is-active">
-                    <b>Pending</b>
+            <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--brown-200">
+                <a href="#pending-tasks-tab" class="mdl-layout__tab is-active mdl-color-text--black">
+                    <b>Pending</b>  
                     <span class="mdl-badge" data-badge="0" id="pending-tasks-badge">
                     </span>
                 </a>
-
-                <a href="#fixed-tab-2" class="mdl-layout__tab">
+                <a href="#archived-tasks-tab" class="mdl-layout__tab mdl-color-text--black">
                     <b>Archived</b>
                     <span class="mdl-badge" data-badge="0" id="archived-tasks-badge">
                     </span>
@@ -170,7 +182,7 @@
         </header>
         <div class="mdl-layout__drawer">
             <span class="mdl-layout-title drawer-title drawer-app-title">
-                <img src="./drawer-logo.png" alt="Work-A-Holic Logo" style="width: 100%; height:100%">
+                Work-A-Holic
             </span>
             <nav class="mdl-navigation">
                 <a class="mdl-navigation__link" id="show-about-info">About</a>
@@ -180,45 +192,25 @@
             </nav>
         </div>
         <main class="mdl-layout__content">
-            <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
+            <section class="mdl-layout__tab-panel is-active" id="pending-tasks-tab">
                 <div class="page-content" id="pending-tab-content">
                 </div>
             </section>
-            <section class="mdl-layout__tab-panel" id="fixed-tab-2">
+            <section class="mdl-layout__tab-panel" id="archived-tasks-tab">
                 <div class="page-content" id="archived-tab-content">
                 </div>
             </section>
         </main>
     </div>
     <!-- Colored FAB button with ripple -->
-    <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" id="add-task-button">
+    <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-color--blue-900" id="add-task-button">
         <i class="material-icons">add</i>
     </button>
+    <!-- Snackbar Container -->
     <div id="snackbar-example" class="mdl-js-snackbar mdl-snackbar" style="width: 100%;">
         <div class="mdl-snackbar__text"></div>
         <button class="mdl-snackbar__action" type="button"></button>
     </div>
-    <!-- SnackBar -->
-    <!-- <script>
-        (function () {
-            'use strict';
-            var snackbarContainer = document.querySelector('#snackbar-example');
-            var showSnackbarButton = document.querySelector('#add-task-button');
-            var handler = function (event) {
-                alert('User wants to undo the Action!');
-            };
-            showSnackbarButton.addEventListener('click', function () {
-                'use strict';
-                var data = {
-                    message: 'Snackbar Initiated From UI',
-                    timeout: 3000,
-                    actionHandler: handler,
-                    actionText: 'Undo'
-                };
-                snackbarContainer.MaterialSnackbar.showSnackbar(data);
-            });
-        }());
-    </script> -->
     <!-- Date Time Picker -->
     <script src="./scripts/date-time/moment.min.js"></script>
     <script src="./scripts/date-time/scroll-into-view-if-needed.min.js"></script>

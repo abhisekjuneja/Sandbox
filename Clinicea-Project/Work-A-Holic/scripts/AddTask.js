@@ -1,106 +1,26 @@
-const addTaskModalContent = `
-<form action="#">
-<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    <input class="mdl-textfield__input is-invalid" type="text" id="task-subject">
-    <label class="mdl-textfield__label is-invalid" for="task-subject"><i class="fa fa-asterisk" aria-hidden="true"></i> Task Subject</label>
-</div>
-<br />
-<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    <input class="mdl-textfield__input" type="text" id="task-due-date">
-    <label class="mdl-textfield__label" for="task-due-date"><i class="fa fa-asterisk" aria-hidden="true"></i> Task Due Date</label>
-</div>
-<br />
-<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    <input class="mdl-textfield__input" type="text" id="task-due-time">
-    <label class="mdl-textfield__label" for="task-due-time"><i class="fa fa-asterisk" aria-hidden="true"></i> Task Due Time</label>
-    
-</span>
-</div>
-<br />
-<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    <textarea class="mdl-textfield__input" type="text" rows="2" id="task-description"></textarea>
-    <label class="mdl-textfield__label" for="task-description"><i class="fa fa-sticky-note-o" aria-hidden="true"></i> Task Description</label>
-</div>
-</form>
-`;
+"use strict";
 
-function createAddTaskModal(taskInformation) {
+/*
+    The "use strict" directive is new in JavaScript 1.8.5 (ECMAScript version 5).
+    It is not a statement, but a literal expression, ignored by earlier versions of JavaScript.
+    The purpose of "use strict" is to indicate that the code should be executed in "strict mode".
+    With strict mode, you can not, for example, use undeclared variables.
+
+    Strict mode is supported in:
+        IE from version 10. Firefox from version 4.
+        Chrome from version 13. Safari from version 5.1.
+        Opera from version 12.
+*/
+
+function createAddTaskDialog(taskInformation) {
     showDialog({
-        id: 'add-task-dialog',
+        id: 'add-new-task-dialog',
         title: 'Add New Task',
-        text: addTaskModalContent,
-        negative: {
-            id: 'cancel-button',
-            title: 'Cancel'
-        },
-        positive: {
-            id: 'ok-button',
-            title: 'Add',
-            onClick: function (clickEvent) {
-                let dialogBox = document.getElementById('add-task-dialog');
-                let taskSubjectField = dialogBox.children[0].children[2].children[0].children[0];
-                let datePickerTextField = dialogBox.children[0].children[2].children[2].children[0];
-                let timePickerTextField = dialogBox.children[0].children[2].children[4].children[0];
-                let taskDescriptionField = dialogBox.children[0].children[2].children[6].children[0];
-                let validationReport = validateData(taskSubjectField.value, datePickerTextField.value, timePickerTextField.value, taskDescriptionField.value);
-                let snackbarContainer = document.getElementById('snackbar-example');
-                // If the Validation Check has been Passed & the task is Ready to Be Stored
-                if (validationReport.subject && validationReport.date && validationReport.time) {
-                    let newTask = createTaskInformation(taskSubjectField.value, datePickerTextField.value, timePickerTextField.value, taskDescriptionField.value);
-                    let currentTimeStamp = (new Date).getTime();
-                    newTask.timeStamp = currentTimeStamp;
-                    newTask.status = 'pending';
-                    // Add New Task Data to Local Storage with the Key of the Created Time Stamp
-                    localStorage[currentTimeStamp] = JSON.stringify(newTask);
-                    if (localStorage[currentTimeStamp]) {
-                        console.log('Inserted!');
-                        console.log(localStorage[currentTimeStamp]);
-                        renderTasksToScreen();
-                    } else {
-                        console.log('Error in Local Storage Insertion');
-                    }
-                    // Create a Handler, which allows the User to Undo the Last Task Addition 
-                    let successHandler = function (event) {
-                        confirm('Do you Really Want to Undo the Addition of the Last Item?');
-                    };
-                    // Show Success SnackBar with the Option to Undo the Last Change
-                    let snackbarData = {
-                        message: `'${taskSubjectField.value}' was Added to the List of Pending Tasks`,
-                        timeout: 3000,
-                        actionHandler: successHandler,
-                        actionText: 'Undo'
-                    };
-                    setTimeout(function () {
-                        snackbarContainer.MaterialSnackbar.showSnackbar(snackbarData)
-                    }, 500);
-                } else {
-                    // Create the Body of the Error Dialog Box, Indicating all the Errors that the User has made
-                    let errorBody = createErrorBody(validationReport);
-                    // Show the Error Dialog to the User & Redirect the User to Rectify the Errors and try Again
-                    showDialog({
-                        id: 'form-validation-error-dialog',
-                        title: `<span class="mdl-badge" data-badge="${errorBody.errorCount}">ERRORS</span>`,
-                        text: errorBody.errorText,
-                        positive: {
-                            id: 'ok-button',
-                            title: 'Rectify',
-                            onClick: function () {
-                                // Create an Object with the Partial Task Data that the user has entered along with the validation report object
-                                // and pass that object to the method that creates a redirected modal again for the user to complete the form
-                                let redirectedTaskInformation = createTaskInformation(taskSubjectField.value, datePickerTextField.value, timePickerTextField.value, taskDescriptionField.value, validationReport);
-                                createAddTaskModal(redirectedTaskInformation);
-                            }
-                        },
-                        cancelable: false,
-                        contentStyle: { 'max-width': '300px' },
-                    });
-                }
-            }
-        },
-        cancelable: false,
+        text: addNewTaskDialogContent,
+        cancelable: true,
         contentStyle: { 'max-width': '400px', 'text-align': 'center', 'margin-top': '5vh' },
         onLoaded: function () {
-            let dialogBox = document.getElementById('add-task-dialog');
+            let dialogBox = document.getElementById('add-new-task-dialog');
 
             let taskSubjectField = dialogBox.children[0].children[2].children[0].children[0];
             taskSubjectField.addEventListener('focus', function () {
@@ -175,8 +95,7 @@ function createAddTaskModal(taskInformation) {
                     timePickerTextField.addEventListener('change', function () {
                         timePickerTextField.parentElement.classList.remove('is-invalid');
                     });
-                }
-                else {
+                } else {
                     timePickerTextField.value = taskInformation.data.time;
                     timePickerTextField.parentElement.classList.add('is-focused');
                 }
@@ -185,7 +104,105 @@ function createAddTaskModal(taskInformation) {
                     taskDescriptionField.dispatchEvent(new Event('focus'));
                 }
             }
-        }
+        },
+        negative: {
+            id: 'cancel-button',
+            title: 'Cancel'
+        },
+        positive: {
+            id: 'ok-button',
+            title: 'Add',
+            onClick: function (clickEvent) {
+                // Grabbing Hold of the Elements in the 'Add New Task' Dialog Box
+                let dialogBox = document.getElementById('add-new-task-dialog');
+                let taskSubjectField = dialogBox.children[0].children[2].children[0].children[0];
+                let datePickerTextField = dialogBox.children[0].children[2].children[2].children[0];
+                let timePickerTextField = dialogBox.children[0].children[2].children[4].children[0];
+                let taskDescriptionField = dialogBox.children[0].children[2].children[6].children[0];
+                // Creating a Validation Report of the Data Entered by the User in the Form & Storing it in 'validationReport'
+                let validationReport = validateData(taskSubjectField.value, datePickerTextField.value, timePickerTextField.value, taskDescriptionField.value);
+                let snackbarContainer = document.getElementById('snackbar-example');
+                // If the Validation Check has been Passed & the task is Ready to Be Stored
+                if (validationReport.subject && validationReport.date && validationReport.time) {
+                    let newTask = createTaskInformation(taskSubjectField.value, datePickerTextField.value, timePickerTextField.value, taskDescriptionField.value);
+                    let currentTimeStamp = moment().format('X');
+                    // let currentTimeStamp = (new Date).getTime();
+                    newTask.timeStamp = currentTimeStamp;
+                    newTask.status = 'pending';
+                    // Add New Task Data to Local Storage with the Key of the Created Time Stamp
+                    localStorage[currentTimeStamp] = JSON.stringify(newTask);
+                    if (localStorage[currentTimeStamp]) {
+                        renderTasksToScreen();
+                    } else {
+
+                        // TODO: Show An 'Error Snackbar' with the Option to Retry the Last Task Addition
+                        // This Feature is Left for Future Additions
+                        // This error is most unlikely to happen because of the fact that most browsers do Support LocalStorage
+
+                    }
+                    // Create a Handler, which allows the User to Undo the Last Task Addition 
+                    let undoLastTaskAddition = function () {
+                        showDialog({
+                            id: 'undo-task-addition-dialog',
+                            title: `Undo Addition of Task : '${newTask.data.subject}'?`,
+                            text: `<h6>Are You Sure?</h6>`,
+                            negative: {
+                                id: 'cancel-button',
+                                title: 'Cancel',
+                            },
+                            positive: {
+                                id: 'yes-button',
+                                title: 'Yes',
+                                onClick: function () {
+                                    deleteTask(newTask.timeStamp);
+                                    let successSnackbarData = {
+                                        message: `The Addition of the Task '${newTask.data.subject}' was Rolled Back`,
+                                        timeout: 3000,
+                                    };
+                                    setTimeout(function () {
+                                        snackbarContainer.MaterialSnackbar.showSnackbar(successSnackbarData);
+                                    }, 250);
+                                }
+                            },
+                            cancelable: true,
+                            contentStyle: { 'max-width': '400px', 'text-align': 'center' },
+                        });
+                    };
+                    // Show A 'Success Snackbar' with the Option to Undo the Last Task Addition
+                    let successSnackbarData = {
+                        message: `'${taskSubjectField.value}' was Added to the List of Pending Tasks`,
+                        timeout: 3000,
+                        actionText: 'Undo',
+                        actionHandler: undoLastTaskAddition,
+                    };
+                    setTimeout(function () {
+                        snackbarContainer.MaterialSnackbar.showSnackbar(successSnackbarData);
+                    }, 250);
+                } else {
+                    // Create the Body of the Error Dialog Box, Indicating all the Errors that the User has made
+                    let errorBody = createErrorBody(validationReport);
+                    // Show the Error Dialog to the User & Redirect the User to Rectify the Errors and try Again
+                    showDialog({
+                        id: 'form-validation-error-dialog',
+                        title: `<span class="mdl-badge" data-badge="${errorBody.errorCount}">ERRORS</span>`,
+                        text: errorBody.errorText,
+                        positive: {
+                            id: 'ok-button',
+                            title: 'Rectify',
+                            onClick: function () {
+                                // Create an Object with the Partial Task Data that the user has entered along with the validation report object
+                                // and pass that object to the method that creates a redirected modal again for the user to complete the form
+                                let redirectedTaskInformation = createTaskInformation(taskSubjectField.value, datePickerTextField.value, timePickerTextField.value, taskDescriptionField.value, validationReport);
+                                createAddTaskDialog(redirectedTaskInformation);
+                            }
+                        },
+                        cancelable: true,
+                        contentStyle: { 'max-width': '300px' },
+                    });
+                }
+            }
+        },
+        
     });
 }
 
@@ -204,7 +221,6 @@ function validateData(subject, date, time, description) {
         validationReport.time = false;
     if (description.trim() === '')
         validationReport.description = false;
-        console.log(validationReport);
     return validationReport;
 }
 
@@ -250,3 +266,43 @@ function createTaskInformation(subject, date, time, description, validationRepor
     }
     return taskInformation;
 }
+
+const addNewTaskDialogContent = `
+<form action="#">
+
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <input class="mdl-textfield__input is-invalid" type="text" id="task-subject" autocomplete="off">
+        <label class="mdl-textfield__label is-invalid" for="task-subject">
+            <i class="fa fa-asterisk" aria-hidden="true"></i> Task Subject
+        </label>
+    </div>
+    
+    <br />
+    
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <input class="mdl-textfield__input" type="text" id="task-due-date" autocomplete="off">
+        <label class="mdl-textfield__label" for="task-due-date">
+            <i class="fa fa-asterisk" aria-hidden="true"></i> Task Due Date
+        </label>
+    </div>
+    
+    <br />
+    
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <input class="mdl-textfield__input" type="text" id="task-due-time" autocomplete="off">
+        <label class="mdl-textfield__label" for="task-due-time">
+            <i class="fa fa-asterisk" aria-hidden="true"></i> Task Due Time
+        </label> 
+    </div>
+    
+    <br />
+    
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <input class="mdl-textfield__input" type="text" rows="2" id="task-description" autocomplete="off"></textarea>
+        <label class="mdl-textfield__label" for="task-description">
+            <i class="fa fa-sticky-note-o" aria-hidden="true"></i> Task Description
+        </label>
+    </div>
+
+</form>
+`;
