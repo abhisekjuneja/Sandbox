@@ -6,9 +6,9 @@
     "orientation": "portrait",
     "icons": [
         {
-            "src": "./icon.svg",
-            "sizes": "155x155",
-            "type": "image/svg"
+            "src": "./assets/icon.png",
+            "sizes": "512x512",
+            "type": "image/png"
         }
     ]
 }

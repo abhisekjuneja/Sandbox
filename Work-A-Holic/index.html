@@ -5,37 +5,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!-- Declares the App as a Standalone Cachable App  -->
     <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="theme-color" content="#00bcd7" />
+    <!-- Setting Theme Color to The Base Theme Color of the App. Applicable to Chrome Mobile -->
+    <meta name="theme-color" content="#6ED5FF" />
     <!-- Manifest File -->
-    <link rel="manifest" href="/manifest.json" />
+    <link rel="manifest" href="./assets/manifest.json" />
     <title>Work-A-Holic</title>
+    <!-- Material Design StyleSheet -->
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-red.min.css" />
     <!-- Material Design Icons from GetMDL.io -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-    <!-- Material Design StyleSheet -->
-    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.min.css" />
+    <!-- Modal Dialog CSS -->
+    <link rel="stylesheet" href="./styles/mdl-jquery-modal-dialog.css">
+    <!-- Font-Awesome -->
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     <!-- Material Design JavaScript -->
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <!-- JQuery CDN -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <!-- Modal Dialog CSS -->
-    <link rel="stylesheet" href="./styles/mdl-jquery-modal-dialog.css">
-    <!-- Mdal Dialog Box JS -->
+
+
+    <!-- Modal Dialog Box JS -->
     <script src="./scripts/mdl-jquery-modal-dialog.js"></script>
-    <!-- Font-Awesome -->
-    <link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-    <!-- Date Picker Stuff -->
-    <!-- Roboto Font For Date Time Picker -->
-    <link href='https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en'
-        rel='stylesheet' type='text/css'>
-    <!-- Date Time Picker CSS  -->
-    <link rel="stylesheet" href="./styles/date-time/mdDateTimePicker.css">
-    <link href="https://fonts.googleapis.com/css?family=Fruktur" rel="stylesheet">
+    <link rel="icon" type="image/png" href="./assets/icon.png">
+
     <style>
         @import "https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css";
 
         body {
             overflow-x: hidden;
+        }
+
+        .logo-img {
+            margin-bottom: 2rem;
+            width: 10rem;
+            height: 10rem;
+            opacity: 0.3;
+            filter: alpha(opacity=50);
         }
 
         #add-task-button {
@@ -46,6 +53,10 @@
             margin-right: 25px;
             margin-bottom: 60px;
             z-index: 900;
+        }
+
+        .task-card-text {
+            line-height: 1.45rem;
         }
 
         #search-task-button {
@@ -141,8 +152,10 @@
             color: black;
         }
 
-        .mdl-layout__header {
-            background-color: #F57C00;
+        .mdl-navigation__link {
+            font-family: 'Roboto' !important;
+            font-weight: bold !important;
+            font-size: 1.1rem;
         }
     </style>
 </head>
@@ -151,7 +164,7 @@
 
     <!-- Simple header with fixed tabs. -->
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs">
-        <header class="mdl-layout__header mdl-color--brown-200 mdl-color-text--black">
+        <header class="mdl-layout__header mdl-color--light-blue-A100 mdl-color-text--black">
             <div class="mdl-layout__header-row">
                 <!-- Title -->
                 <span class="mdl-layout-title mdl-color-text--black">Work-A-Holic</span>
@@ -167,9 +180,9 @@
                 </ul>
             </div>
             <!-- Tabs -->
-            <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--brown-200">
+            <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--light-blue-A100">
                 <a href="#pending-tasks-tab" class="mdl-layout__tab is-active mdl-color-text--black">
-                    <b>Pending</b>  
+                    <b>Pending</b>
                     <span class="mdl-badge" data-badge="0" id="pending-tasks-badge">
                     </span>
                 </a>
@@ -203,7 +216,8 @@
         </main>
     </div>
     <!-- Colored FAB button with ripple -->
-    <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-color--blue-900" id="add-task-button">
+    <button class="mdl-button mdl-js-button mdl-button--fab mdl-shadow--8dp mdl-js-ripple-effect mdl-button--colored mdl-color--deep-orange-500"
+        id="add-task-button">
         <i class="material-icons">add</i>
     </button>
     <!-- Snackbar Container -->
@@ -221,6 +235,13 @@
     <script src="./scripts/drawer.js"></script>
     <script src="./scripts/AddTask.js"></script>
     <script src="./scripts/ShowTasks.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Fruktur" rel="stylesheet">
+    <!-- Date Picker Stuff -->
+    <!-- Roboto Font For Date Time Picker -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en'
+        rel='stylesheet' type='text/css'>
+    <!-- Date Time Picker CSS  -->
+    <link rel="stylesheet" href="./styles/date-time/mdDateTimePicker.css">
 </body>
 
 </html>

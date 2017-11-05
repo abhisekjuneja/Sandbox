@@ -17,11 +17,6 @@ window.onload = function () {
     let calendarOption = document.getElementById('calendar-option');
     calendarOption.addEventListener('click', createCalendar);
 
-    document.addEventListener('wheel', onTouchStart, { passive: true });
-    document.addEventListener('mousewheel', onTouchStart, { passive: true });
-    document.addEventListener('touchstart', onTouchStart, { passive: true });
-    document.addEventListener('touchmove', onTouchStart, { passive: true });
-
     setInterval(monitorTaskTimeStamps, 1000);
 }
 
@@ -30,7 +25,7 @@ function createSearchDialog() {
         id: 'search-dialog',
         title: 'Search Tasks By Keyword',
         text: searchTasksDialogContent,
-        cancelable: true,
+        cancelable: false,
         contentStyle: { 'max-width': '400px', 'text-align': 'center' },
         negative: {
             id: 'cancel-button',
@@ -58,7 +53,7 @@ function createSearchDialog() {
                             <span class="mdl-chip__text"><strong>Keyword</strong></span>
                         </span>
                         <br/>Search Keyword <strong>Cannot be Empty!</strong>`,
-                        cancelable: true,
+                        cancelable: false,
                         contentStyle: { 'max-width': '300px' },
                         positive: {
                             id: 'rectify-button',
@@ -86,7 +81,7 @@ const searchTasksDialogContent = `
 <form action="#">
 
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-focused">
-        <input class="mdl-textfield__input is-invalid" type="text" id="task-subject" required autocomplete="off"> 
+        <input class="mdl-textfield__input is-invalid" type="text" id="task-subject" autocomplete="off"> 
         <label class="mdl-textfield__label is-invalid" for="task-subject">
             <i class="fa fa-asterisk" aria-hidden="true"></i> Search Keyword
         </label>

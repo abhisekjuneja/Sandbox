@@ -35,11 +35,11 @@ function renderTasksToScreen() {
     // }
     if (pendingTasksCount == 0) {
         pendingTasksBadge.setAttribute('data-badge', pendingTasksCount);
-        pendingTabContent.innerHTML = '<b><br /><i class="fa fa-clone fa-4x" aria-hidden="true"></i><br /><br />Pending Task List is Empty!<br /><br /> Click on the <i class="icon-plus-sign"></i>  icon to Add a New Task</b>';
+        pendingTabContent.innerHTML = '<br /><img src="./assets/icon.png" class="logo-img" alt="Work-A-Holic Logo" /><br /><b>Pending Task List is Empty!<br /><br /> Click on the <i class="icon-plus-sign"></i>  icon to Add a New Task</b>';
     }
     if (archivedTasksCount == 0) {
         archivedTasksBadge.setAttribute('data-badge', archivedTasksCount);
-        archivedTabContent.innerHTML = '<b><br /><i class="fa fa-clone fa-4x" aria-hidden="true"></i><br /><br />Archived Task List is Empty!<br /><br /> Click on the <i class="icon-plus-sign"></i>  icon to Add a New Task</b>';
+        archivedTabContent.innerHTML = '<br /><img src="./assets/icon.png" class="logo-img" alt="Work-A-Holic Logo" /><br /><b>Archived Task List is Empty!<br /><br /> Click on the <i class="icon-plus-sign"></i>  icon to Add a New Task</b>';
     }
 }
 
@@ -49,12 +49,13 @@ function addPendingTaskToScreen(task) {
     }
     let taskTemplate = `
     <div class="demo-card-square mdl-card mdl-shadow--4dp mb-2" id="${task.timeStamp}">
-        <div class="mdl-card__title mdl-color--light-blue-700 mdl-color-text--white">
+        <div class="mdl-card__title mdl-color--amber-A100">
             <h2 class="mdl-card__title-text">${task.data.subject}</h2>
         </div>
 
         <div class="mdl-card__supporting-text">
             <div class="task-card-text">
+                Task Details:<br />
                 <i class="fa fa-calendar fa-large" aria-hidden="true"></i>&nbsp;&nbsp;<b>${task.data.date}</b>
                 <br />
                 <i class="fa fa-clock-o fa-large" aria-hidden="true"></i>&nbsp;&nbsp;<b>${task.data.time}</b>
@@ -72,7 +73,7 @@ function addPendingTaskToScreen(task) {
         </div>
 
         <div class="mdl-card__actions mdl-card--border">
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" onclick="moveTaskToArchivedTab(${task.timeStamp})">
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--cyan-50" onclick="moveTaskToArchivedTab(${task.timeStamp})">
             Mark As Complete
             </button>
         </div>
@@ -88,18 +89,18 @@ function addArchivedTaskToScreen(task) {
         task.data.description = `<i class="fa fa-comments-o" aria-hidden="true"></i> <b>${task.data.description}</b>`
     }
     if (task.completionInTime == true) {
-        archivedTaskDisplayClass = 'task-archived-successful';
+        archivedTaskDisplayClass = 'mdl-color--green-A200';
         completionStatusHTML = `
-        <i class="fa fa-thumbs-up fa-large" aria-hidden="true"></i>&nbsp;&nbsp;<b style="color: green;">Completed Before Due Date!</b>
+        <i class="fa fa-thumbs-up fa-large" aria-hidden="true"></i>&nbsp;&nbsp;<b class="mdl-color-text--green-600">Completed Before Due Date!</b>
         <br />
         <i class="fa fa-calendar-plus-o fa-large" aria-hidden="true"></i>&nbsp;&nbsp;<b>${moment(task.completionTimeStamp, 'X').format('dddd, MMMM Do YYYY')}</b>
         <br />
         <i class="fa fa-clock-o fa-large" aria-hidden="true"></i>&nbsp;&nbsp;<b>${moment(task.completionTimeStamp, 'X').format('h:mm A')}</b>
         `;
     } else {
-        archivedTaskDisplayClass = 'task-archived-unsuccessful';
+        archivedTaskDisplayClass = 'mdl-color--deep-orange-200';
         completionStatusHTML = `
-        <i class="fa fa-thumbs-down fa-large" aria-hidden="true"></i>&nbsp;&nbsp;<b style="color: red;">Expired on Due Date</b>
+        <i class="fa fa-thumbs-down fa-large" aria-hidden="true"></i>&nbsp;&nbsp;<b class="mdl-color-text--red-400">Expired on Due Date</b>
         <br />
         <i class="fa fa-calendar-plus-o fa-large" aria-hidden="true"></i>&nbsp;&nbsp;<b>${moment(task.date).format('dddd, MMMM Do YYYY')}</b>
         <br />
@@ -114,6 +115,7 @@ function addArchivedTaskToScreen(task) {
 
         <div class="mdl-card__supporting-text">
         <div class="task-card-text">
+            Task Details:<br />
             <i class="fa fa-calendar fa-large" aria-hidden="true"></i>&nbsp;&nbsp;<b>${task.data.date}</b>
             <br />
             <i class="fa fa-clock-o fa-large" aria-hidden="true"></i>&nbsp;&nbsp;<b>${task.data.time}</b>
@@ -124,9 +126,9 @@ function addArchivedTaskToScreen(task) {
         <div class="task-card-text">
             You Created this Entry on:
             <br />
-            <i class="fa fa-calendar-plus-o fa-large" aria-hidden="true"></i>&nbsp;&nbsp;<b>${moment(task.timeStamp).format('dddd, MMMM Do YYYY')}</b>
+            <i class="fa fa-calendar-plus-o fa-large" aria-hidden="true"></i>&nbsp;&nbsp;<b>${moment(task.timeStamp, 'X').format('dddd, MMMM Do YYYY')}</b>
             <br />
-            <i class="fa fa-clock-o fa-large" aria-hidden="true"></i>&nbsp;&nbsp;<b>${moment(task.timeStamp).format('h:mm A')}</b>
+            <i class="fa fa-clock-o fa-large" aria-hidden="true"></i>&nbsp;&nbsp;<b>${moment(task.timeStamp, 'X').format('h:mm A')}</b>
         </div>
         <hr />
         <div class="task-card-text">
@@ -135,7 +137,7 @@ function addArchivedTaskToScreen(task) {
     </div>
         
         <div class="mdl-card__actions mdl-card--border">
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" onclick="deleteTask(${task.timeStamp})">
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--orange-100" onclick="deleteTask(${task.timeStamp})">
             Delete Task
             </button>
         </div>

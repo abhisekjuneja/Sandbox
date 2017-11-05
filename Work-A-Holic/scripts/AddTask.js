@@ -17,7 +17,7 @@ function createAddTaskDialog(taskInformation) {
         id: 'add-new-task-dialog',
         title: 'Add New Task',
         text: addNewTaskDialogContent,
-        cancelable: true,
+        cancelable: false,
         contentStyle: { 'max-width': '400px', 'text-align': 'center', 'margin-top': '5vh' },
         onLoaded: function () {
             let dialogBox = document.getElementById('add-new-task-dialog');
@@ -164,7 +164,7 @@ function createAddTaskDialog(taskInformation) {
                                     }, 250);
                                 }
                             },
-                            cancelable: true,
+                            cancelable: false,
                             contentStyle: { 'max-width': '400px', 'text-align': 'center' },
                         });
                     };
@@ -196,7 +196,7 @@ function createAddTaskDialog(taskInformation) {
                                 createAddTaskDialog(redirectedTaskInformation);
                             }
                         },
-                        cancelable: true,
+                        cancelable: false,
                         contentStyle: { 'max-width': '300px' },
                     });
                 }
