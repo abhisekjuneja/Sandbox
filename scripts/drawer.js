@@ -9,7 +9,6 @@ $('#show-about-info').click(function () {
             title: 'Close'
         },
         cancelable: false,
-        contentStyle: { 'max-width': '300px' }
     });
 });
 $('#show-report-bug-info').click(function () {
@@ -37,7 +36,7 @@ $('#give-feedback-info').click(function () {
 $('#contact-us-info').click(function () {
     showDialog({
         title: 'Reach out to Me!',
-        text: 'Send me an <a class="no-link-underline" href="mailto:abhisekjuneja@gmail.com"><b>E-mail</b></a>.<br />I promise to get in touch ASAP!',
+        text: 'Send me an <a class="no-link-underline" href="mailto:abhisekjuneja@gmail.com"><b>E-mail</b></a>. I promise to get in touch ASAP!',
         negative: {
             id: 'cancel-button',
             title: 'Close'
